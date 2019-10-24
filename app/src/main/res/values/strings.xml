@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MusicApp</string>
+    <string name="mnu_music">Bài hát</string>
+    <string name="mnu_album">Albums</string>
+    <string name="mnu_artist">Nghệ Sĩ</string>
+    <string name="other">Other</string>
+    <string name="mini_game">Mini Game</string>
+    <string name="nav_title">Music Player</string>
+    <string name="search">Search</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+</resources>
