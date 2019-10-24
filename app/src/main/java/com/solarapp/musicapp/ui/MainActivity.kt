@@ -1,6 +1,7 @@
 package com.solarapp.musicapp.ui
 
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
@@ -9,17 +10,7 @@ import com.solarapp.musicapp.databinding.ActivityMainBinding
 import com.solarapp.musicapp.ui.album.FragmentAlbums
 import com.solarapp.musicapp.ui.artist.FragmentArtist
 import com.solarapp.musicapp.ui.music.FragmentSong
-import com.sun.corba.se.impl.protocol.giopmsgheaders.FragmentMessage
 import kotlinx.android.synthetic.main.activity_main.*
-import android.R
-import android.widget.Toast
-import android.os.Bundle
-import com.sun.corba.se.impl.protocol.giopmsgheaders.FragmentMessage
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
 
 
 class MainActivity : ActivityBase<ActivityMainBinding>(),
@@ -54,16 +45,16 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
-            R.id.nav_song -> {
-
+            com.solarapp.musicapp.R.id.nav_song -> {
+                binding.navView.setCheckedItem(com.solarapp.musicapp.R.id.nav_song)
             }
-            R.id.nav_album -> {
-
+            com.solarapp.musicapp.R.id.nav_album -> {
+                binding.navView.setCheckedItem(com.solarapp.musicapp.R.id.nav_album)
             }
-            R.id.nav_artist -> {
-
+            com.solarapp.musicapp.R.id.nav_artist -> {
+                binding.navView.setCheckedItem(com.solarapp.musicapp.R.id.nav_artist)
             }
-            R.id.nav_share -> Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
+            com.solarapp.musicapp.R.id.other -> Toast.makeText(this, "Other", Toast.LENGTH_SHORT).show()
         }
 
         binding.drawerLayout.closeDrawer(GravityCompat.START)
