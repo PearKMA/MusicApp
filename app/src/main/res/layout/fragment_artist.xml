@@ -16,5 +16,10 @@
             android:background="@color/bg_song_fragment"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mnu_artist"
+            android:layout_gravity="center"/>
     </FrameLayout>
 </layout>
