@@ -8,7 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.solarapp.musicapp.models.ModelBase
 
-class AdapterBase<T : ModelBase>(
+open class AdapterBase<T : ModelBase>(
     private val inflater: LayoutInflater,
     private @LayoutRes val resLayout: Int
 ) : RecyclerView.Adapter<AdapterBase.ViewHolderBase>() {
@@ -35,19 +35,17 @@ class AdapterBase<T : ModelBase>(
 
     override fun onBindViewHolder(holder: ViewHolderBase, position: Int) {
         val item = data?.get(position)
-
+        initView()
         //holder.binding.setVariable(BR.item, item)
         //holder.binding.setVariable(BR.listener, listener)
         holder.binding.executePendingBindings()
     }
 
-    class ViewHolderBase : RecyclerView.ViewHolder {
-        val binding: ViewDataBinding
+     fun initView() {
 
-        constructor(binding: ViewDataBinding) : super(binding.root) {
-            this.binding = binding
-        }
     }
+
+    class ViewHolderBase(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface ListItemListener
 }

@@ -37,7 +37,9 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
 
     override fun initAct() {
         super.initAct()
-        doRequestPermission(PERMISSIONS)
+        doRequestPermission(PERMISSIONS,{
+
+        })
 
         setSupportActionBar(toolbar)
         setUpDrawerAndViewPager()
