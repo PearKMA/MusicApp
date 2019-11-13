@@ -7,14 +7,14 @@
             type="com.solarapp.musicapp.models.Song" />
         <variable
             name="listener"
-            type="com.solarapp.musicapp.ui.music.ISongListener" />
+            type="com.solarapp.musicapp.ui.fragments.music.ISongListener" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="4dp"
     android:background="@color/bg_item_song"
-    android:onClick="@{listener.onSongClicked()}"
+    android:onClick="@{v -> listener.onSongClicked(song)}"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView

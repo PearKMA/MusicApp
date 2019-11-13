@@ -1,10 +1,12 @@
 package com.solarapp.musicapp.ui
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.IBinder
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.SearchView
-import android.widget.TabHost
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -13,43 +15,60 @@ import com.google.android.material.tabs.TabLayout
 import com.solarapp.musicapp.R
 import com.solarapp.musicapp.bases.ActivityBase
 import com.solarapp.musicapp.databinding.ActivityMainBinding
-import com.solarapp.musicapp.ui.album.FragmentAlbums
-import com.solarapp.musicapp.ui.artist.FragmentArtist
-import com.solarapp.musicapp.ui.music.FragmentSong
+import com.solarapp.musicapp.service.MP3Service
+import com.solarapp.musicapp.ui.fragments.music.FragmentSong
+import com.solarapp.musicapp.ui.fragments.music.album.FragmentAlbums
+import com.solarapp.musicapp.ui.fragments.music.artist.FragmentArtist
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : ActivityBase<ActivityMainBinding>(),
     NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener,
     androidx.appcompat.widget.SearchView.OnQueryTextListener {
-
-
-
-    private val PERMISSIONS = arrayOf(
-        android.Manifest.permission.READ_EXTERNAL_STORAGE
-    )
+    companion object {
+        private val STORAGE_PERMISSION = arrayOf(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+    }
 
     private lateinit var adapter: MainPagerAdapter
     private val fmSong = FragmentSong()
     private val fmAlbum = FragmentAlbums()
     private val fmArtist = FragmentArtist()
 
+    var service: MP3Service? = null
 
     override fun initAct() {
         super.initAct()
-        doRequestPermission(PERMISSIONS,{
+        doRequestPermission(STORAGE_PERMISSION, {
+            setSupportActionBar(toolbar)
+            setUpDrawerAndViewPager()
 
+            val intent = Intent(this, MP3Service::class.java)
+            //bind de giao tiep voi activity
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+
+//            startService(intent)
         })
-
-        setSupportActionBar(toolbar)
-        setUpDrawerAndViewPager()
-
 
     }
 
+    private val connection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+
+        }
+
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            if (p1 is MP3Service.MP3Binder) {
+                service = p1.service
+            }
+        }
+
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mnu_searchview,menu)
-        val search = menu?.findItem(R.id.action_search)?.actionView as androidx.appcompat.widget.SearchView
+        menuInflater.inflate(R.menu.mnu_searchview, menu)
+        val search =
+            menu?.findItem(R.id.action_search)?.actionView as androidx.appcompat.widget.SearchView
         search.setOnQueryTextListener(this)
         return super.onCreateOptionsMenu(menu)
     }
@@ -114,14 +133,16 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
     }
 
     override fun onTabSelected(p0: TabLayout.Tab?) {
-        binding.viewPager.setCurrentItem(p0!!.position)
+        binding.viewPager.currentItem = p0!!.position
 
-        binding.navView.setCheckedItem(when(p0.position){
-            0 -> R.id.nav_song
-            1-> R.id.nav_album
-            2 -> R.id.nav_artist
-            else -> R.id.nav_song
-        })
+        binding.navView.setCheckedItem(
+            when (p0.position) {
+                0 -> R.id.nav_song
+                1 -> R.id.nav_album
+                2 -> R.id.nav_artist
+                else -> R.id.nav_song
+            }
+        )
     }
 
     override fun getLayoutId(): Int {
@@ -136,4 +157,8 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unbindService(connection)
+    }
 }

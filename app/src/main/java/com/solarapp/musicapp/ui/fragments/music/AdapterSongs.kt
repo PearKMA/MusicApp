@@ -1,4 +1,4 @@
-package com.solarapp.musicapp.ui.music
+package com.solarapp.musicapp.ui.fragments.music
 
 import android.view.LayoutInflater
 import com.solarapp.musicapp.bases.AdapterBase
