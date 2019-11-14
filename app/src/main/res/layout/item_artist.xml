@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="artist"
+            type="com.solarapp.musicapp.models.Artist" />
+        <variable
+            name="listener"
+            type="com.solarapp.musicapp.ui.fragments.artist.IArtistListener" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:background="@color/bg_item_song"
+        android:onClick="@{v -> listener.onArtistClicked(artist)}"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/ivItemSong"
+            android:background="@color/color_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="12dp"
+            android:src="@drawable/ic_music" />
+        <TextView
+            android:id="@+id/tvNameSong"
+            android:layout_width="0dp"
+            android:text="@{artist.name}"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="abc"
+            app:layout_constraintStart_toEndOf="@id/ivItemSong"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tvNumberAlbums"
+            app:layout_constraintTop_toTopOf="@id/ivItemSong"/>
+
+        <TextView
+            android:id="@+id/tvNumberAlbums"
+            android:layout_width="wrap_content"
+            android:text="@{artist.numberOAlbum}"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvNameSong"
+            app:layout_constraintTop_toBottomOf="@id/tvNameSong"
+            tools:text="test"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="@id/ivItemSong"/>
+        <TextView
+            android:id="@+id/tvNumberSong"
+            android:layout_width="wrap_content"
+            android:text="@{artist.numberOTrask}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/tvNumberAlbums"
+            app:layout_constraintTop_toTopOf="@id/tvNumberAlbums"
+            tools:text="test"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivItemSong"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

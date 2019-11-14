@@ -65,6 +65,7 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
         }
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.mnu_searchview, menu)
         val search =
@@ -118,10 +119,16 @@ class MainActivity : ActivityBase<ActivityMainBinding>(),
             R.id.nav_artist -> {
                 idItem = 2
             }
-            R.id.other -> Toast.makeText(this, "Other", Toast.LENGTH_SHORT).show()
+            R.id.other -> {
+                idItem = 3
+            }
         }
-        binding.tabs.getTabAt(idItem)?.select()
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        if (idItem == 3)
+            Toast.makeText(this, "Other", Toast.LENGTH_SHORT).show()
+        else {
+            binding.tabs.getTabAt(idItem)?.select()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
         return true
     }
 
